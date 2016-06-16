@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     var swipePerforationView : UIImageView = UIImageView()
     var swipeContentView: UIView = UIView()
     
+    var swipeAreaView : UIView = UIView()
+    
     
     
     override func viewDidLoad() {
@@ -52,6 +54,8 @@ class ViewController: UIViewController {
         
         self.view.insertSubview(shadowView, belowSubview: self.swipeContainerView)
         
+        self.swipeAreaView.layer.cornerRadius = 24.0
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -86,6 +90,9 @@ class ViewController: UIViewController {
         swipeContentView.translatesAutoresizingMaskIntoConstraints = false
         swipeContentView.backgroundColor = UIColor.whiteColor()
         
+        swipeAreaView.translatesAutoresizingMaskIntoConstraints = false
+        swipeAreaView.backgroundColor  = UIColor(red: 0.5, green: 0.3, blue: 0.3, alpha: 1.0)
+        
         
         self.view.addSubview(self.couponTopView)
 
@@ -96,6 +103,7 @@ class ViewController: UIViewController {
         
         self.swipeContainerView.addSubview(swipePerforationView)
         self.swipeContainerView.addSubview(swipeContentView)
+        self.swipeContentView.addSubview(swipeAreaView)
         
         let topPerforationWidth : CGFloat = UIImage(named: "PerforationUp")!.size.width
         let topPerforationHeight : CGFloat = UIImage(named: "PerforationUp")!.size.height
@@ -108,7 +116,8 @@ class ViewController: UIViewController {
                      "couponContentView" : self.couponContentView,
                      "swipeContainerView" : self.swipeContainerView,
                      "swipePerforationView" : self.swipePerforationView,
-                     "swipeContentView" : self.swipeContentView]
+                     "swipeContentView" : self.swipeContentView,
+                     "swipeAreaView" : self.swipeAreaView]
         let metrics = ["couponTopViewHeight" : 200.0,
                        "swipeContainerViewHeight" : 80.0 ]
         var constraints = []
@@ -163,7 +172,13 @@ class ViewController: UIViewController {
         constraints = NSLayoutConstraint.constraintsWithVisualFormat(format, options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views)
         self.swipeContainerView.addConstraints(constraints as! [NSLayoutConstraint])
         
+        format = "|-12-[swipeAreaView]-12-|"
+        constraints = NSLayoutConstraint.constraintsWithVisualFormat(format, options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views)
+        self.swipeContentView.addConstraints(constraints as! [NSLayoutConstraint])
         
+        format = "V:|-0-[swipeAreaView]-8-|"
+        constraints = NSLayoutConstraint.constraintsWithVisualFormat(format, options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views)
+        self.swipeContentView.addConstraints(constraints as! [NSLayoutConstraint])
         
         
     }
