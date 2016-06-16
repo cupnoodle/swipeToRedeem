@@ -38,7 +38,16 @@ extension UIView {
     }
     
     func roundBottomCorners(radius: CGFloat){
+        /*
+        self.layer.shadowColor = UIColor.blackColor().CGColor
+        self.layer.shadowOpacity = 0.4
+        self.layer.shadowRadius = 5.0
+        self.layer.shadowOffset = CGSizeMake(0.0, 3.0)
+         */
+        
         self.roundCorners([UIRectCorner.BottomLeft, UIRectCorner.BottomRight] , radius: radius)
+        
+        
     }
     
     
