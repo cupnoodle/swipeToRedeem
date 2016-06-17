@@ -25,8 +25,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
         self.initializeCouponView()
+        
         
     }
     
@@ -38,6 +38,8 @@ class ViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
+        
+        
         // Round top corner of couponTopView
         self.couponTopView.roundTopCorners(10.0)
         
@@ -58,6 +60,16 @@ class ViewController: UIViewController {
         self.swipeAreaView.layer.cornerRadius = 28.0
         
         self.swipeCursorView.layer.cornerRadius = 23.0
+        
+        swipeCursorView.frame = CGRectMake(0.0, 0.0, 45.0, 45.0)
+        swipeCursorView.center = CGPointMake(swipeAreaView.frame.origin.x + 18.0 , swipeAreaView.center.y - 10.0)
+        
+        print("swipe cursor view origin x \(swipeCursorView.frame.origin.x)")
+        
+        
+        
+        
+        self.swipeCursorView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(ViewController.handleDrag(_:)) ))
     }
 
     override func didReceiveMemoryWarning() {
@@ -131,6 +143,13 @@ class ViewController: UIViewController {
         var constraint : NSLayoutConstraint = NSLayoutConstraint()
         var format = ""
         
+        format = "V:|-60-[couponTopView(couponTopViewHeight)]-0-[swipeContainerView(swipeContainerViewHeight)]"
+        constraints = NSLayoutConstraint.constraintsWithVisualFormat(format, options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views)
+        self.view.addConstraints(constraints as! [NSLayoutConstraint])
+        
+        format = "|-(leftRightMarginToSuper)-[swipeContainerView]-(leftRightMarginToSuper)-|"
+        constraints = NSLayoutConstraint.constraintsWithVisualFormat(format, options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views)
+        self.view.addConstraints(constraints as! [NSLayoutConstraint])
         
         format = "|-(leftRightMarginToSuper)-[couponTopView]-(leftRightMarginToSuper)-|"
         constraints = NSLayoutConstraint.constraintsWithVisualFormat(format, options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views)
@@ -150,18 +169,6 @@ class ViewController: UIViewController {
         format = "V:|-0-[couponContentView]-0-[couponTopPerforationView]-0-|"
         constraints = NSLayoutConstraint.constraintsWithVisualFormat(format, options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views)
         self.couponTopView.addConstraints(constraints as! [NSLayoutConstraint])
-        
-        
-        
-        
-        format = "|-(leftRightMarginToSuper)-[swipeContainerView]-(leftRightMarginToSuper)-|"
-        constraints = NSLayoutConstraint.constraintsWithVisualFormat(format, options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views)
-        self.view.addConstraints(constraints as! [NSLayoutConstraint])
-        
-        format = "V:|-60-[couponTopView(couponTopViewHeight)]-0-[swipeContainerView(swipeContainerViewHeight)]"
-        constraints = NSLayoutConstraint.constraintsWithVisualFormat(format, options: NSLayoutFormatOptions(rawValue: 0), metrics: metrics, views: views)
-        self.view.addConstraints(constraints as! [NSLayoutConstraint])
-        
         
         
         format = "|-0-[swipePerforationView]-0-|"
@@ -206,20 +213,30 @@ class ViewController: UIViewController {
         */
         
 
-        swipeCursorView.frame = CGRectMake(6.0, 4.0, 45.0, 45.0)
-        swipeCursorView.center = CGPointMake(swipeCursorView.center.x , swipeContentView.center.y)
         
-        print("swipe cursor view origin x \(swipeCursorView.frame.origin.x)")
- 
-       
-        
-        
-        self.swipeCursorView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(ViewController.handleDrag(_:)) ))
     }
     
     // MARK: - handle for action
     func handleDrag(panGesture: UIPanGestureRecognizer){
-        print("dragging")
+        var xTranslation = panGesture.translationInView(swipeAreaView).x
+        print("x in area is \(xTranslation)")
+        
+        //swipeCursorView.frame = CGRectOffset(swipeCursorView.frame, xTranslation/swipeCursorView.frame.size.width, 0)
+        
+        let translation = panGesture.translationInView(self.view)
+        
+        let minX : CGFloat = 30.0
+        // the view that contain pan gesture, i.e swipe cursor view
+        if let view = panGesture.view {
+            if(view.center.x + translation.x >= minX)
+            {
+                view.center = CGPoint(x:view.center.x + translation.x,
+                                      y:view.center.y)
+            }
+        }
+        panGesture.setTranslation(CGPointZero, inView: self.view)
+
+        
     }
 }
 
