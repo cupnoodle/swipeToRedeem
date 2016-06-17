@@ -206,7 +206,8 @@ class ViewController: UIViewController {
         */
         
 
-        swipeCursorView.frame = CGRectMake(6.0, 6.0, 45.0, 45.0)
+        swipeCursorView.frame = CGRectMake(6.0, 4.0, 45.0, 45.0)
+        swipeCursorView.center = CGPointMake(swipeCursorView.center.x , swipeContentView.center.y)
         
         print("swipe cursor view origin x \(swipeCursorView.frame.origin.x)")
  
