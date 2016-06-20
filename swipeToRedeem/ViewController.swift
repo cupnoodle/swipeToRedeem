@@ -226,9 +226,13 @@ class ViewController: UIViewController {
         let translation = panGesture.translationInView(self.view)
         
         let minX : CGFloat = 30.0
+        let maxX : CGFloat = 226.0
+        
         // the view that contain pan gesture, i.e swipe cursor view
+        print("current cursor center x is \(panGesture.view!.center.x + translation.x)")
+        
         if let view = panGesture.view {
-            if(view.center.x + translation.x >= minX)
+            if(view.center.x + translation.x >= minX && view.center.x + translation.x <= maxX)
             {
                 view.center = CGPoint(x:view.center.x + translation.x,
                                       y:view.center.y)
