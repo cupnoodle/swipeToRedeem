@@ -313,7 +313,9 @@ class ViewController: UIViewController {
                     // successfully finish swipe
                     // disable pangesture
                     self.swipeCursorView.gestureRecognizers?.forEach(self.swipeCursorView.removeGestureRecognizer)
-                
+                    
+                    // hide arrow instruction
+                    self.swipeRightImageView.alpha = 0.0
                     
                     self.showRedeemedMessage()
                     self.animateTearCoupon()
@@ -340,10 +342,20 @@ class ViewController: UIViewController {
         if let view = panGesture.view {
             if(view.center.x + translation.x >= minX && view.center.x + translation.x <= maxX)
             {
+                // move the swipe cursor
                 view.center = CGPoint(x:view.center.x + translation.x,
                                       y:view.center.y)
+                
+                // modify the alpha of right arrow
+                var alpha = maxX - (view.center.x + translation.x)
+                
+                alpha = alpha / maxX
+                print("alpha of arrow is \(alpha)")
+                self.swipeRightImageView.alpha = alpha
             }
         }
+        
+        // reset the translation so that the new value wont add on previous translation
         panGesture.setTranslation(CGPointZero, inView: self.view)
 
         
