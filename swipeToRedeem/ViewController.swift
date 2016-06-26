@@ -224,7 +224,7 @@ class ViewController: UIViewController {
         let xTranslation = panGesture.translationInView(swipeAreaView).x
         let translation = panGesture.translationInView(self.view)
         let minX : CGFloat = 30.0
-        let maxX : CGFloat = 226.0
+        let maxX : CGFloat = self.swipeAreaView.frame.maxX - self.swipeCursorView.frame.size.width + 4.0
         
         print("x in area is \(xTranslation)")
         
