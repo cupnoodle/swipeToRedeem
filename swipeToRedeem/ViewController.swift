@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     var swipeContentView: UIView = UIView()
     
     var swipeAreaView : UIView = UIView()
-    
+    var swipeRightImageView : UIImageView = UIImageView()
     var swipeCursorView : UIView = UIView()
     var swipeContainerShadowView : UIView = UIView()
     
@@ -68,6 +68,10 @@ class ViewController: UIViewController {
         swipeCursorView.frame = CGRectMake(0.0, 0.0, 45.0, 45.0)
         swipeCursorView.center = CGPointMake(swipeAreaView.frame.origin.x + 18.0 , swipeAreaView.center.y - 10.0)
         
+        
+        swipeRightImageView.frame = CGRectMake(0.0, 0.0, 20.0, 20.0)
+        swipeRightImageView.center = CGPointMake(swipeAreaView.center.x - 10.0, swipeCursorView.center.y)
+        
         print("swipe cursor view origin x \(swipeCursorView.frame.origin.x)")
         
         /*
@@ -116,6 +120,10 @@ class ViewController: UIViewController {
         swipeCursorView.translatesAutoresizingMaskIntoConstraints = false
         swipeCursorView.backgroundColor = UIColor.whiteColor()
         
+        swipeRightImageView = UIImageView(image: UIImage(named: "RightArrow"))
+        swipeRightImageView.contentMode = .ScaleAspectFit
+        swipeRightImageView.translatesAutoresizingMaskIntoConstraints = false
+        
         self.view.addSubview(self.couponTopView)
 
         self.couponTopView.addSubview(self.couponContentView)
@@ -127,7 +135,7 @@ class ViewController: UIViewController {
         self.swipeContainerView.addSubview(swipeContentView)
         self.swipeContentView.addSubview(swipeAreaView)
         self.swipeAreaView.addSubview(swipeCursorView)
-        
+        self.swipeAreaView.insertSubview(swipeRightImageView, belowSubview: swipeCursorView)
         
         couponRedemptionDateView.translatesAutoresizingMaskIntoConstraints = false
         couponRedemptionDateView.backgroundColor = UIColor.clearColor()
@@ -175,11 +183,13 @@ class ViewController: UIViewController {
                      "swipePerforationView" : self.swipePerforationView,
                      "swipeContentView" : self.swipeContentView,
                      "swipeAreaView" : self.swipeAreaView,
+                     "swipeRightImageView" : self.swipeRightImageView,
                      "swipeCursorView" : self.swipeCursorView,
                      "couponRedemptionDateView" : self.couponRedemptionDateView,
                      "couponRedemptionLabel" : self.couponRedemptionLabel]
         let metrics = ["couponTopViewHeight" : 200.0,
                        "swipeContainerViewHeight" : 100.0,
+                       "swipeRightImageViewSize" : 20.0,
                        "leftRightMarginToSuper" : 20.0,
                        "couponRedemptionDateHeight" : 70.0,
                        "couponRedemptionDateLeftRightMarginToSuper" : 35]
