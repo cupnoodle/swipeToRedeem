@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     var swipeAreaView : UIView = UIView()
     
     var swipeCursorView : UIView = UIView()
-    
+    var swipeContainerShadowView : UIView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,16 +46,17 @@ class ViewController: UIViewController {
         // Round bottom corner of swipe container
         self.swipeContainerView.roundBottomCorners(10.0)
         
-        let shadowView = UIView(frame: CGRectMake(self.swipeContainerView.frame.origin.x + 6, self.swipeContainerView.frame.origin.y + 30.0, self.swipeContainerView.frame.size.width - 6 , self.swipeContainerView.frame.size.height - 33.0) )
+        self.swipeContainerShadowView.frame =  CGRectMake(self.swipeContainerView.frame.origin.x + 6, self.swipeContainerView.frame.origin.y + 30.0, self.swipeContainerView.frame.size.width - 6 , self.swipeContainerView.frame.size.height - 33.0)
         
-        shadowView.layer.backgroundColor = UIColor.whiteColor().CGColor
-        shadowView.layer.cornerRadius = 10.0
-        shadowView.layer.shadowColor = UIColor.blackColor().CGColor
-        shadowView.layer.shadowOffset = CGSizeMake(-3,5)
-        shadowView.layer.shadowOpacity = 0.3
-        shadowView.layer.shadowRadius = 2
+        self.swipeContainerShadowView.translatesAutoresizingMaskIntoConstraints = false
+        self.swipeContainerShadowView.layer.backgroundColor = UIColor.whiteColor().CGColor
+        self.swipeContainerShadowView.layer.cornerRadius = 10.0
+        self.swipeContainerShadowView.layer.shadowColor = UIColor.blackColor().CGColor
+        self.swipeContainerShadowView.layer.shadowOffset = CGSizeMake(-3,5)
+        self.swipeContainerShadowView.layer.shadowOpacity = 0.3
+        self.swipeContainerShadowView.layer.shadowRadius = 2
         
-        self.view.insertSubview(shadowView, belowSubview: self.swipeContainerView)
+        self.view.insertSubview(self.swipeContainerShadowView, belowSubview: self.swipeContainerView)
         
         self.swipeAreaView.layer.cornerRadius = 28.0
         
@@ -220,22 +221,39 @@ class ViewController: UIViewController {
     func handleDrag(panGesture: UIPanGestureRecognizer){
         
         
-        var xTranslation = panGesture.translationInView(swipeAreaView).x
+        let xTranslation = panGesture.translationInView(swipeAreaView).x
+        let translation = panGesture.translationInView(self.view)
+        let minX : CGFloat = 30.0
+        let maxX : CGFloat = 226.0
+        
         print("x in area is \(xTranslation)")
         
         //swipeCursorView.frame = CGRectOffset(swipeCursorView.frame, xTranslation/swipeCursorView.frame.size.width, 0)
         if (panGesture.state == .Ended)
         {
-            UIView.animateWithDuration(0.5, animations: {
-                self.swipeCursorView.center = CGPoint(x: 30.0, y: self.swipeCursorView.center.y)
-            })
+            if let view = panGesture.view {
+                
+                if(view.center.x + translation.x >= maxX - 5.0) {
+                    // successfully finish swipe
+                    // disable pangesture
+                    self.swipeCursorView.gestureRecognizers?.forEach(self.swipeCursorView.removeGestureRecognizer)
+                
+                    self.animateTearCoupon()
+                } else {
+                    
+                    // swipe stopped halfway
+                    // return cursor to start position
+                    UIView.animateWithDuration(0.5, animations: {
+                        self.swipeCursorView.center = CGPoint(x: 30.0, y: self.swipeCursorView.center.y)
+                    })
+                }
+            }
             return
         }
         
-        let translation = panGesture.translationInView(self.view)
         
-        let minX : CGFloat = 30.0
-        let maxX : CGFloat = 226.0
+        
+        
         
         // the view that contain pan gesture, i.e swipe cursor view
         print("current cursor center x is \(panGesture.view!.center.x + translation.x)")
@@ -251,5 +269,77 @@ class ViewController: UIViewController {
 
         
     }
+    
+    func animateTearCoupon() {
+        let spinDegree = -30.0
+        let yTranslateDistance = self.view.frame.size.height - self.swipeContainerView.center.y + self.swipeContainerView.frame.size.height + 50
+        
+        let tearCouponDuration = 2.0
+        let rotateCouponDuration = 1.0
+        let fadeOutCouponDuration = 1.0
+        
+        UIView.beginAnimations("tearCouponShadow", context: nil)
+        UIView.setAnimationDuration(tearCouponDuration)
+        UIView.setAnimationCurve(.EaseOut)
+        UIView.setAnimationTransition(.None, forView: self.view, cache: false)
+        UIView.setAnimationDelegate(self)
+        //self.swipeContainerView.center.y += 100
+        self.swipeContainerShadowView.center.y += yTranslateDistance
+        
+        UIView.commitAnimations()
+        
+        //---------
+        UIView.beginAnimations("tearCoupon", context: nil)
+        UIView.setAnimationDuration(tearCouponDuration)
+        UIView.setAnimationCurve(.EaseOut)
+        UIView.setAnimationTransition(.None, forView: self.view, cache: false)
+        UIView.setAnimationDelegate(self)
+        self.swipeContainerView.center.y += yTranslateDistance
+        
+        UIView.commitAnimations()
+        
+        //---------
+        UIView.beginAnimations("rotateCouponShadow", context: nil)
+        UIView.setAnimationDuration(rotateCouponDuration)
+        UIView.setAnimationCurve(.EaseOut)
+        UIView.setAnimationTransition(.None, forView: self.view, cache: false)
+        UIView.setAnimationDelegate(self)
+        self.swipeContainerShadowView.transform = CGAffineTransformMakeRotation(degreesToRadians(spinDegree))
+        
+        UIView.commitAnimations()
+        
+        //---------
+        UIView.beginAnimations("rotateCoupon", context: nil)
+        UIView.setAnimationDuration(rotateCouponDuration)
+        UIView.setAnimationCurve(.EaseOut)
+        UIView.setAnimationTransition(.None, forView: self.view, cache: false)
+        UIView.setAnimationDelegate(self)
+        self.swipeContainerView.transform = CGAffineTransformMakeRotation(degreesToRadians(spinDegree))
+        
+        UIView.commitAnimations()
+        
+        //---------
+        UIView.beginAnimations("fadeOutCouponShadow", context: nil)
+        UIView.setAnimationDuration(fadeOutCouponDuration)
+        UIView.setAnimationCurve(.EaseOut)
+        UIView.setAnimationTransition(.None, forView: self.view, cache: false)
+        UIView.setAnimationDelegate(self)
+        self.swipeContainerShadowView.alpha = 0.0
+        
+        UIView.commitAnimations()
+        
+        //---------
+        UIView.beginAnimations("fadeOutCoupon", context: nil)
+        UIView.setAnimationDuration(fadeOutCouponDuration)
+        UIView.setAnimationCurve(.EaseOut)
+        UIView.setAnimationTransition(.None, forView: self.view, cache: false)
+        UIView.setAnimationDelegate(self)
+        self.swipeContainerView.alpha = 0.0
+        
+        UIView.commitAnimations()
+        
+    }
+    
+    
 }
 

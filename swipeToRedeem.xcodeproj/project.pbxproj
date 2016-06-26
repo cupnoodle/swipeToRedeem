@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06FDA4661D1FF32C00B992C2 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FDA4651D1FF32C00B992C2 /* Utility.swift */; };
 		DE3DD0561D125E03003E32C7 /* UIView+Rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3DD0551D125E03003E32C7 /* UIView+Rounded.swift */; };
 		DECA9E041D124ADE00AF8909 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA9E031D124ADE00AF8909 /* AppDelegate.swift */; };
 		DECA9E061D124ADE00AF8909 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA9E051D124ADE00AF8909 /* ViewController.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		06FDA4651D1FF32C00B992C2 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		DE3DD0551D125E03003E32C7 /* UIView+Rounded.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Rounded.swift"; sourceTree = "<group>"; };
 		DECA9E001D124ADE00AF8909 /* swipeToRedeem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swipeToRedeem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DECA9E031D124ADE00AF8909 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				DE3DD0551D125E03003E32C7 /* UIView+Rounded.swift */,
+				06FDA4651D1FF32C00B992C2 /* Utility.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06FDA4661D1FF32C00B992C2 /* Utility.swift in Sources */,
 				DECA9E061D124ADE00AF8909 /* ViewController.swift in Sources */,
 				DECA9E041D124ADE00AF8909 /* AppDelegate.swift in Sources */,
 				DE3DD0561D125E03003E32C7 /* UIView+Rounded.swift in Sources */,
