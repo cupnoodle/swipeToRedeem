@@ -326,6 +326,7 @@ class ViewController: UIViewController {
                     // return cursor to start position
                     UIView.animateWithDuration(0.5, animations: {
                         self.swipeCursorView.center = CGPoint(x: 30.0, y: self.swipeCursorView.center.y)
+                        self.swipeRightImageView.alpha = 1.0
                     })
                 }
             }
