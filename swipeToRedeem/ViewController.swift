@@ -218,10 +218,19 @@ class ViewController: UIViewController {
     
     // MARK: - handle for action
     func handleDrag(panGesture: UIPanGestureRecognizer){
+        
+        
         var xTranslation = panGesture.translationInView(swipeAreaView).x
         print("x in area is \(xTranslation)")
         
         //swipeCursorView.frame = CGRectOffset(swipeCursorView.frame, xTranslation/swipeCursorView.frame.size.width, 0)
+        if (panGesture.state == .Ended)
+        {
+            UIView.animateWithDuration(0.5, animations: {
+                self.swipeCursorView.center = CGPoint(x: 30.0, y: self.swipeCursorView.center.y)
+            })
+            return
+        }
         
         let translation = panGesture.translationInView(self.view)
         
