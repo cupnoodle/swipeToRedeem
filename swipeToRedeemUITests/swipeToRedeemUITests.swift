@@ -22,15 +22,37 @@ class swipeToRedeemUITests: XCTestCase {
 
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
         XCUIDevice.sharedDevice().orientation = .Portrait
-        testDragCursor()
     }
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
+        
     }
     
-    func testDragCursor() {
+    func testDragCursorToHalf() {
+        // Use recording to get started writing UI tests.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let app = XCUIApplication()
+        
+        let cursor = app.otherElements["swipeCursor"]
+        
+        let startDragPoint = cursor.coordinateWithNormalizedOffset(CGVector(dx: 0.5, dy: 0.01))
+        let endDragPoint = startDragPoint.coordinateWithOffset(CGVector(dx: 50.0, dy: 0.10))
+        
+        startDragPoint.pressForDuration(0.5, thenDragToCoordinate: endDragPoint)
+        sleep(2)
+        
+        let redeemTextPredicate = NSPredicate(format: "label BEGINSWITH 'Redeemed on'")
+        let redeemLabel = app.staticTexts.elementMatchingPredicate(redeemTextPredicate)
+        
+        // Check if the Redeem label has appeared
+        // label should not appear as cursor didnt moved to end
+        XCTAssert(!redeemLabel.hittable)
+        
+    }
+    
+    func testDragCursorToEnd() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         let app = XCUIApplication()
@@ -40,14 +62,16 @@ class swipeToRedeemUITests: XCTestCase {
         let startDragPoint = cursor.coordinateWithNormalizedOffset(CGVector(dx: 0.5, dy: 0.01))
         let endDragPoint = startDragPoint.coordinateWithOffset(CGVector(dx: 300.0, dy: 0.10))
         
-        
         startDragPoint.pressForDuration(0.5, thenDragToCoordinate: endDragPoint)
-        sleep(4)
+        sleep(2)
         
         let redeemTextPredicate = NSPredicate(format: "label BEGINSWITH 'Redeemed on'")
         let redeemLabel = app.staticTexts.elementMatchingPredicate(redeemTextPredicate)
         
+        // Check if the Redeem label has appeared
+        // label should appear as cursor moved to end
         XCTAssert(redeemLabel.hittable)
+        
     }
     
 }
