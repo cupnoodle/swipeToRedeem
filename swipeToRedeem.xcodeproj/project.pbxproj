@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06F702BA1D22ADC7001BC073 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA9E051D124ADE00AF8909 /* ViewController.swift */; };
+		06F702BB1D22ADCB001BC073 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA9E031D124ADE00AF8909 /* AppDelegate.swift */; };
+		06F702BC1D22ADCE001BC073 /* UIView+Rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3DD0551D125E03003E32C7 /* UIView+Rounded.swift */; };
+		06F702BD1D22ADD1001BC073 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FDA4651D1FF32C00B992C2 /* Utility.swift */; };
+		06F702BE1D22ADDA001BC073 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DECA9E071D124ADE00AF8909 /* Main.storyboard */; };
+		06F702C01D22ADE4001BC073 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DECA9E0A1D124ADE00AF8909 /* Assets.xcassets */; };
 		06FDA4661D1FF32C00B992C2 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FDA4651D1FF32C00B992C2 /* Utility.swift */; };
 		DE3DD0561D125E03003E32C7 /* UIView+Rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3DD0551D125E03003E32C7 /* UIView+Rounded.swift */; };
 		DECA9E041D124ADE00AF8909 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA9E031D124ADE00AF8909 /* AppDelegate.swift */; };
@@ -197,6 +203,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06F702C01D22ADE4001BC073 /* Assets.xcassets in Resources */,
+				06F702BE1D22ADDA001BC073 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,6 +226,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06F702BD1D22ADD1001BC073 /* Utility.swift in Sources */,
+				06F702BC1D22ADCE001BC073 /* UIView+Rounded.swift in Sources */,
+				06F702BB1D22ADCB001BC073 /* AppDelegate.swift in Sources */,
+				06F702BA1D22ADC7001BC073 /* ViewController.swift in Sources */,
 				DECA9E191D124ADE00AF8909 /* swipeToRedeemUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

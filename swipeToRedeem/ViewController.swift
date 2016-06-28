@@ -116,9 +116,11 @@ class ViewController: UIViewController {
         
         swipeAreaView.translatesAutoresizingMaskIntoConstraints = false
         swipeAreaView.backgroundColor  = UIColor(red: 0.855, green: 0.032, blue: 0.303, alpha: 1.0)
+        swipeAreaView.accessibilityIdentifier = "swipeArea"
         
         swipeCursorView.translatesAutoresizingMaskIntoConstraints = false
         swipeCursorView.backgroundColor = UIColor.whiteColor()
+        swipeCursorView.accessibilityIdentifier = "swipeCursor"
         
         swipeRightImageView = UIImageView(image: UIImage(named: "RightArrow"))
         swipeRightImageView.contentMode = .ScaleAspectFit
