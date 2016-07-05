@@ -9,4 +9,5 @@ XCPRETTY_INSTALLED=$?
 if [[ $TRAVIS || $XCPRETTY_INSTALLED == 0 ]]; then
   eval "${TEST_CMD} | xcpretty"
 else
-eval "$T
+  eval "$TEST_CMD"
+fi
