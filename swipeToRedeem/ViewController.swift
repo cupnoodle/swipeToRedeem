@@ -370,7 +370,7 @@ class ViewController: UIViewController {
         
         let tearCouponDuration = 1.0
         let rotateCouponDuration = 0.7
-        let fadeOutCouponDuration = 1.0
+        //let fadeOutCouponDuration = 1.0
         
         UIView.beginAnimations("tearCouponShadow", context: nil)
         UIView.setAnimationDuration(tearCouponDuration)

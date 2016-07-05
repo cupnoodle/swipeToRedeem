@@ -1,5 +1,7 @@
 #! /bin/bash
-#-workspace swipeToRedeem.xcworkspace
+
+# input workspace if using cocoapods
+# -workspace swipeToRedeem.xcworkspace
 
 TEST_CMD="xcodebuild -scheme swipeToRedeemUITests -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 6S,OS=9.3' build test"
 
