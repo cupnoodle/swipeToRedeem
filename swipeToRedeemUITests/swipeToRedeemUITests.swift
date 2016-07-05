@@ -48,6 +48,7 @@ class swipeToRedeemUITests: XCTestCase {
         
         // Check if the Redeem label has appeared
         // label should not appear as cursor didnt moved to end
+        //
         XCTAssert(!redeemLabel.hittable)
         
     }
