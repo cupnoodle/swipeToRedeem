@@ -9,3 +9,5 @@ Hence I tried to replicate it, quite fun learning how pan gesture works and trie
 The view hierachy/naming might be a bit weird. 😅
 
 ![gif](http://i.imgur.com/mXu9IOY.gif)
+
+dummy change
